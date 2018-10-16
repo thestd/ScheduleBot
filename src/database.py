@@ -1,5 +1,5 @@
-from config.settings import DB_NAME, DB_USER, DB_USER_PASSWORD
 import psycopg2
+from config.settings import DB_NAME, DB_USER, DB_USER_PASSWORD
 
 
 class DataBase:
