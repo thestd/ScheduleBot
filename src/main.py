@@ -1,3 +1,4 @@
+# -*-codding: utf-8-*-
 from config.settings import BOT_TOKEN, LISTEN_IP, SERVER_PORT, \
     SERVER_KEY, SERVER_CERT, WEBHOOK_URL, WEBHOOK_ENABLE
 from src.dispatch import updater

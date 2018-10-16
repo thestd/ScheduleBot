@@ -33,6 +33,4 @@ TEACHER_EXISTS = "?n=701&lev=141&faculty=0&query="
 
 # ========== SITE PARSER SETTINGS ==========
 ADMIN_PANEL_ENABLE = False
-ID_ADMINS = [
-
-]
+ID_ADMINS = []

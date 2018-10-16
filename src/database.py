@@ -14,7 +14,7 @@ class DataBase:
                                      password=self.db_user_password)
         self.cursor = self.conn.cursor()
         self.cursor.execute(
-            "CREATE TABLE IF NOT EXISTS nafta_users (id serial PRIMARY KEY, user_id integer, group_name varchar(100));")
+            "CREATE TABLE IF NOT EXISTS users (id serial PRIMARY KEY, user_id integer, group_name varchar(100));")
         self.conn.commit()
 
     def add_user(self, user_id: int, group_name: str):
@@ -24,7 +24,7 @@ class DataBase:
         :param group_name: name of group max_len=10
         """
         self.cursor.execute(
-            f"INSERT INTO public.nafta_users (id, user_id, group_name) VALUES (DEFAULT, {user_id}, '{group_name}');")
+            f"INSERT INTO public.users (id, user_id, group_name) VALUES (DEFAULT, {user_id}, '{group_name}');")
         self.conn.commit()
 
     def change_group_name(self, user_id: int, group_name: str):
@@ -33,7 +33,7 @@ class DataBase:
         :param user_id: id of user
         :param group_name: name of group max_len=10
         """
-        self.cursor.execute(f"UPDATE public.nafta_users SET group_name = '{group_name}' WHERE user_id = {user_id}")
+        self.cursor.execute(f"UPDATE public.users SET group_name = '{group_name}' WHERE user_id = {user_id}")
         self.conn.commit()
 
     def get_group_name(self, user_id) -> str:
@@ -42,12 +42,21 @@ class DataBase:
         :param user_id: id of user
         :return: group name
         """
-        self.cursor.execute(f"SELECT group_name FROM nafta_users where user_id = {user_id}")
+        self.cursor.execute(f"SELECT group_name FROM users WHERE user_id = {user_id}")
         return self.cursor.fetchone()[0]
 
     def user_id_exists(self, user_id):
-        self.cursor.execute(f"SELECT group_name FROM nafta_users where user_id = {user_id}")
+        self.cursor.execute(f"SELECT group_name FROM users WHERE user_id = {user_id}")
         return self.cursor.fetchone() is not None
+
+    def get_count_users(self):
+        """
+        Get count users
+        :return: count users
+        """
+        self.cursor.execute(f"SELECT COUNT(*),  FROM users")
+        return self.cursor.fetchone()[0]
+
 
     def delete_user(self, user_id: int):
         """
@@ -55,7 +64,7 @@ class DataBase:
         :param user_id: id of user
         """
         self.cursor.execute(
-            f"DELETE FROM public.nafta_users WHERE user_id = {user_id};")
+            f"DELETE FROM public.users WHERE user_id = {user_id};")
         self.conn.commit()
 
     def close(self):

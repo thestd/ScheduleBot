@@ -12,6 +12,9 @@ bot = bot.ScheduleBot()
 start_hand = CommandHandler(cmd.START, bot.menu_before_register)
 dispatcher.add_handler(start_hand)
 
+main_menu_hand = RegexHandler(cmd.MAIN_MENU, bot.menu_after_register)
+dispatcher.add_handler(main_menu_hand)
+
 
 # ********* AFTER REGISTER DISPATCH *********
 today_hand = RegexHandler(cmd.TODAY, bot.get_today)
@@ -19,6 +22,9 @@ dispatcher.add_handler(today_hand)
 
 tomorrow_hand = RegexHandler(cmd.TOMORROW, bot.get_tomorrow)
 dispatcher.add_handler(tomorrow_hand)
+
+two_day_hand = RegexHandler(cmd.DAY_AFTER_TOMORROW, bot.get_day_after_tomorrow)
+dispatcher.add_handler(two_day_hand)
 
 week_hand = RegexHandler(cmd.WEEK, bot.get_week)
 dispatcher.add_handler(week_hand)
@@ -38,7 +44,7 @@ register_hand = MessageHandler(Filters.text, bot.register)
 dispatcher.add_handler(register_hand)
 
 
-# ********* BEFORE REGISTER DISPATCH *********
+# ********* ADMIN DISPATCH *********
 admin_hand = CommandHandler(cmd.ADMIN_PANEL, bot.admin_panel)
 dispatcher.add_handler(admin_hand)
 

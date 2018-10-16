@@ -18,12 +18,12 @@ class ScheduleBot:
 
         self._keyboard_after_register = [
             [_.TODAY, _.TOMORROW],
-            [_.WEEK, _.TWO_WEEK],
-            [_.ABOUT_BOT]
+            [_.DAY_AFTER_TOMORROW, _.WEEK],
+            [_.TWO_WEEK, _.ABOUT_BOT]
         ]
 
         self._keyboard_admin_panel = [
-            [_.MAILING, _.GET_MY_ID]
+            ["/"+_.GET_MY_ID, _.MAIN_MENU],
         ]
 
     def menu_before_register(self, bot, update):
@@ -153,6 +153,27 @@ class ScheduleBot:
             )
         self._send_schedule_message(bot, update, response)
 
+    def get_day_after_tomorrow(self, bot, update):
+        '''
+        Schedule the day after tomorrow
+        :param bot: bot-object
+        :param update: last received data
+        :sending: message with schedule tomorrow or error
+        '''
+        tomorrow = (dt.datetime.today().date() + dt.timedelta(days=2)).strftime(settings.DATE_FORMAT)
+        data = self.db.get_group_name(update.message.chat_id).split('_')
+        if data[0] == 'g':
+            response = self.scrapper.get_schedule(
+                group=data[1],
+                sdate=tomorrow, edate=tomorrow
+            )
+        else:
+            response = self.scrapper.get_schedule(
+                teacher=data[1],
+                sdate=tomorrow, edate=tomorrow
+            )
+        self._send_schedule_message(bot, update, response)
+
     def get_week(self, bot, update):
         '''
         Weekly Schedule
@@ -205,18 +226,9 @@ class ScheduleBot:
         :sending: message with the number of active users and the admin key
         '''
         if update.message.chat_id in settings.ID_ADMINS:
-            self.menu_admin_panel(bot, update, message=notific.ADMIN_MESSAGE % update.message.chat['username'])
-
-    def mailing(self, bot, update, message):
-        '''
-        TODO: mailing
-        Method of message distribution
-        :param bot: bot-object
-        :param update: last received data
-        :param message: message for mailing
-        :sending:
-        '''
-        pass
+            self.menu_admin_panel(bot, update, message=notific.ADMIN_MESSAGE % (
+                                    update.message.chat['username'], self.db.get_count_users())
+                                  )
 
     def get_my_id(self, bot, update):
         '''

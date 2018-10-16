@@ -5,7 +5,7 @@ END = "end"
 # -------ADMIN COMMAND-------
 ADMIN_PANEL = "admin"
 GET_MY_ID = "get_my_id"
-MAILING = "mailing"
+MAIN_MENU = "Головне меню"
 
 
 # -------KEYBOARD TEXT-------
@@ -14,6 +14,7 @@ ABOUT_BOT = "Про бота"
 
 TODAY = "Сьогодні"
 TOMORROW = "Завтра"
+DAY_AFTER_TOMORROW = "Післязавтра"
 WEEK = "Тиждень"
 TWO_WEEK = "2 Тижні"
 OTHER_GROUP = "Інша група"
