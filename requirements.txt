@@ -12,7 +12,7 @@ psycopg2==2.7.5
 psycopg2-binary==2.7.5
 pycparser==2.19
 python-telegram-bot==11.1.0
-requests==2.19.1
+requests==2.20.0
 robobrowser==0.5.3
 six==1.11.0
 urllib3==1.23
