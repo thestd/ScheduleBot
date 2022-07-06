@@ -7,7 +7,7 @@ cryptography==2.3.1
 emoji==0.5.1
 future==0.16.0
 idna==2.7
-lxml==4.2.5
+lxml==4.9.1
 psycopg2==2.7.5
 psycopg2-binary==2.7.5
 pycparser==2.19
